@@ -26,6 +26,11 @@ public class ServiceMsg implements OutIm {
         loginIm.loginture();
     }
 
+    @Override
+    public void logindefeated() {
+        loginIm.loginerror();
+    }
+
     public void login(){
         interIm.login();
     }

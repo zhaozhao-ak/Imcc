@@ -7,4 +7,6 @@ package com.zz.imcc;
 public interface OutIm {
 
     void loginsucceed();
+
+    void logindefeated();
 }

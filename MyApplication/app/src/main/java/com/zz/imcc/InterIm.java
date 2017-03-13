@@ -37,10 +37,14 @@ public class InterIm implements ConnectionIm{
         try {
             xmppConnection.init(username,password);
         } catch (IOException e) {
+            System.out.println("zhao-----11-----"+e);
             e.printStackTrace();
         } catch (XMPPException e) {
+            outIm.logindefeated();
+            System.out.println("zhao-----登录失败，密码错误-----"+e);
             e.printStackTrace();
         } catch (SmackException e) {
+            System.out.println("zhao-----33-----"+e);
             e.printStackTrace();
         }
     }

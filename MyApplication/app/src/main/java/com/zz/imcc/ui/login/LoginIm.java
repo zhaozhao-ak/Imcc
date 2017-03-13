@@ -7,4 +7,6 @@ package com.zz.imcc.ui.login;
 public interface LoginIm {
 
     void loginture();
+
+    void loginerror();
 }

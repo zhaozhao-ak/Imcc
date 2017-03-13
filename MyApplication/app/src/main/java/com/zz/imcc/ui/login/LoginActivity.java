@@ -16,6 +16,7 @@ import com.zz.imcc.Myapplication;
 import com.zz.imcc.R;
 import com.zz.imcc.ui.ServiceMsg;
 import com.zz.imcc.ui.main.MainActivity;
+import com.zz.imcc.utils.ToastUtil;
 
 
 /**
@@ -96,9 +97,12 @@ public class LoginActivity extends AppCompatActivity implements LoginIm{
             super.handleMessage(msg);
             switch (msg.what){
                 case 1:
-                    Toast.makeText(context, "登录成功", Toast.LENGTH_SHORT).show();
+                    ToastUtil.showToastSafe(context,"登录成功");
                     Intent main = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(main);
+                    break;
+                case 2:
+                    ToastUtil.showToastSafe(context,"密码错误，请重新登录");
                     break;
                 default:
                     break;
@@ -113,6 +117,13 @@ public class LoginActivity extends AppCompatActivity implements LoginIm{
         msg.what = 1;
         handler.sendMessage(msg);
 
+    }
+
+    @Override
+    public void loginerror() {
+        Message msg = new Message();
+        msg.what = 2;
+        handler.sendMessage(msg);
     }
 
 
