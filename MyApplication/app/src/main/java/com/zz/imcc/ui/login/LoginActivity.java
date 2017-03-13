@@ -1,9 +1,7 @@
 package com.zz.imcc.ui.login;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,22 +12,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.zz.imcc.InterIm;
 import com.zz.imcc.Myapplication;
 import com.zz.imcc.R;
+import com.zz.imcc.ui.ServiceMsg;
 import com.zz.imcc.ui.main.MainActivity;
 
 
 /**
  * 登录界面
  */
-public class LoginActivity extends AppCompatActivity{
+public class LoginActivity extends AppCompatActivity implements LoginIm{
 
     private EditText nameEText, pwdEText;
     private Button loginButton;
-    private InterIm interIm;
+    private ServiceMsg serviceMsg;
     private Context context;
-    private ReceiveBroadCast receiveBroadCast;  //广播实例
 
 
     // 主机IP
@@ -44,7 +41,7 @@ public class LoginActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         context = this;
-        setLoginBroadCast();
+        serviceMsg = new ServiceMsg(context,this);
         //初始化View
         initView();
 
@@ -86,8 +83,7 @@ public class LoginActivity extends AppCompatActivity{
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        interIm = new InterIm(context);
-                        interIm.login();
+                        serviceMsg.login();
                     }
                 }).start();
             }
@@ -100,7 +96,9 @@ public class LoginActivity extends AppCompatActivity{
             super.handleMessage(msg);
             switch (msg.what){
                 case 1:
-                    getMain();
+                    Toast.makeText(context, "登录成功", Toast.LENGTH_SHORT).show();
+                    Intent main = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(main);
                     break;
                 default:
                     break;
@@ -109,36 +107,17 @@ public class LoginActivity extends AppCompatActivity{
     };
 
 
-    private void getMain(){
-        Toast.makeText(context, "登录成功", Toast.LENGTH_SHORT).show();
-        Intent main = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(main);
-    }
-
-    //登录成功收到广播
-    public class ReceiveBroadCast extends BroadcastReceiver
-    {
-        @Override
-        public void onReceive(Context context, Intent intent)
-        {
-            Message msg = new Message();
-            msg.what =1;
-            handler.sendMessage(msg);
-        }
+    @Override
+    public void loginture() {
+        Message msg = new Message();
+        msg.what = 1;
+        handler.sendMessage(msg);
 
     }
 
-    private void setLoginBroadCast(){
-        // 注册广播接收
-        receiveBroadCast = new ReceiveBroadCast();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("Loginture");    //只有持有相同的action的接受者才能接收此广播
-        registerReceiver(receiveBroadCast, filter);
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(receiveBroadCast);
     }
 }

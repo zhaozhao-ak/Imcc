@@ -1,7 +1,6 @@
 package com.zz.imcc;
 
 import android.content.Context;
-import android.content.Intent;
 
 import com.zz.imcc.imcccare.xmpp.ConnectionIm;
 import com.zz.imcc.imcccare.xmpp.XMPPConnection;
@@ -21,9 +20,11 @@ public class InterIm implements ConnectionIm{
     private Context context;
 
     private LoginIm loginIm;
+    private OutIm outIm;
 
-    public InterIm(Context context){
+    public InterIm(Context context,OutIm outIm){
         this.context = context;
+        this.outIm = outIm;
     }
 
     public void login(){
@@ -48,8 +49,6 @@ public class InterIm implements ConnectionIm{
     @Override
     public void loginture() {
         System.out.println("zhao-----99-----");
-        Intent intent = new Intent();
-        intent.setAction("Loginture");
-        context.sendBroadcast(intent);
+        outIm.loginsucceed();
     }
 }
