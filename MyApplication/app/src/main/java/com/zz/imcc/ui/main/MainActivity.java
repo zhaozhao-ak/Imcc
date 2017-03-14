@@ -4,12 +4,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.zz.imcc.R;
+import com.zz.imcc.ui.BeasActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * 主界面
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BeasActivity {
     private TextView titleText;
     private ViewPager mainPager;
     private RadioButton chatRButton, contactRButton;
@@ -29,9 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initView();
-
         initListener();
 
 //        initData();
@@ -41,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 初始化View
      */
-    private void initView() {
+    protected void initView() {
         titleText = (TextView) findViewById(R.id.tv_title);
         mainPager = (ViewPager) findViewById(R.id.vp_main);
         chatRButton = (RadioButton) findViewById(R.id.rb_chat);

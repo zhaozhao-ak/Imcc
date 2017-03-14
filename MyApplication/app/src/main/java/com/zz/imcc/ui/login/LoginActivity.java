@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.zz.imcc.Myapplication;
 import com.zz.imcc.R;
 import com.zz.imcc.ui.ServiceMsg;
 import com.zz.imcc.ui.main.MainActivity;
+import com.zz.imcc.utils.SaveUtil;
 import com.zz.imcc.utils.ToastUtil;
 
 
@@ -70,22 +70,20 @@ public class LoginActivity extends AppCompatActivity implements LoginIm{
                 final String username = nameEText.getText().toString().trim();
                 final String password = pwdEText.getText().toString().trim();
                 //判断用户名与密码是否为空
-                if (TextUtils.isEmpty(username)) {
-                    nameEText.setError("用户名不能为空");
+
+                if (TextUtils.isEmpty(username)||TextUtils.isEmpty(password)) {
+                    nameEText.setError("用户名或者密码不能为空");
                     return;
+                }else {
+                    SaveUtil.saveData(context,"username",username);
+                    SaveUtil.saveData(context,"password",password);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            serviceMsg.login();
+                        }
+                    }).start();
                 }
-                if (TextUtils.isEmpty(password)) {
-                    pwdEText.setError("密码不能为空");
-                    return;
-                }
-                Myapplication.username = username;
-                Myapplication.password = password;
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        serviceMsg.login();
-                    }
-                }).start();
             }
         });
     }

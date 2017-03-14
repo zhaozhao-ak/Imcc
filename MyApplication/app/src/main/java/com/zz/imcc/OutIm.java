@@ -9,4 +9,5 @@ public interface OutIm {
     void loginsucceed();
 
     void logindefeated();
+
 }

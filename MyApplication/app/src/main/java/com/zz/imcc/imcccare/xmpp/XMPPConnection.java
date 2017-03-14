@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class XMPPConnection {
 
-    public XMPPTCPConnection con;
+    public static XMPPTCPConnection con;
     private boolean target;
     private ConnectionIm connectionIm;
 
@@ -28,12 +28,12 @@ public class XMPPConnection {
         this.connectionIm = connectionIm;
     }
 
-    public XMPPTCPConnection getConnection(){
+    public static XMPPTCPConnection getConnection(){
         return con;
     }
 
     //初始化XMPPTCPConnection 登录
-    public void init(String username,String password) throws IOException, XMPPException, SmackException {
+    public static void init(String username,String password) throws IOException, XMPPException, SmackException {
         XMPPTCPConnectionConfiguration.Builder config = XMPPTCPConnectionConfiguration.builder();
         config.setHost(Myapplication.HOST);              //设置openfire主机IP
         config.setServiceName(Myapplication.SERVICENAME);         //设置openfire服务器名称
@@ -44,15 +44,15 @@ public class XMPPConnection {
         config.setDebuggerEnabled(true);
         con = new XMPPTCPConnection(config.build());
         con.connect();
-        target = con.isConnected();
-        if(target){
-            con.addConnectionListener(xmppConnecionListener);
-            con.login();
-            connectionIm.loginture();
-            System.out.println("zhao-----XMPP 服务器连接成功");
-        }else{
-            System.out.println("zhao--------XMPP 服务器连接失败");
-        }
+//        target = con.isConnected();
+//        if(target){
+//            con.addConnectionListener(xmppConnecionListener);
+//            con.login();
+//            connectionIm.loginture();
+//            System.out.println("zhao-----XMPP 服务器连接成功");
+//        }else{
+//            System.out.println("zhao--------XMPP 服务器连接失败");
+//        }
     }
 
 

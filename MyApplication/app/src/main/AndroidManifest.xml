@@ -20,6 +20,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.main.MainActivity"></activity>
+
+
+
+
+        <service android:name=".imcccare.service.ImService"></service>
     </application>
 
 </manifest>
